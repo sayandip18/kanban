@@ -4,7 +4,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { UserService } from '../users/users.service';
 import { AuthResponse } from './auth-response.type';
 import { User as UserEntity } from '../users/users.entity';

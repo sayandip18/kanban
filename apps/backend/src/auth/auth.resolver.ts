@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { SignupInput, LoginInput } from './auth.inputs';
 import { AuthResponse } from './auth-response.type';
@@ -6,6 +6,11 @@ import { AuthResponse } from './auth-response.type';
 @Resolver()
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
+
+  @Query(() => Boolean)
+  healthCheck(): boolean {
+    return true;
+  }
 
   @Mutation(() => AuthResponse)
   async signup(@Args('input') input: SignupInput): Promise<AuthResponse> {
