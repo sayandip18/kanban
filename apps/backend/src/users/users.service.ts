@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './users.model';
+import { User as UserEntity } from './users.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SafeUser } from '@kanban/types';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
-    @InjectRepository(User)
-    private repo: Repository<User>,
+    @InjectRepository(UserEntity)
+    private repo: Repository<UserEntity>,
   ) {}
 
   async findAll(): Promise<SafeUser[]> {
@@ -21,7 +21,7 @@ export class UsersService {
     return this.repo.save(user);
   }
 
-  async findByEmail(email: string) {
+  async findByEmail(email: string): Promise<UserEntity | null> {
     return this.repo.findOne({ where: { email } });
   }
 
