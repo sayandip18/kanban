@@ -16,7 +16,7 @@ export class UserService {
     return this.repo.find();
   }
 
-  async createUser(data: CreateUserInput) {
+  async createUser(data: CreateUserInput): Promise<UserEntity> {
     const user = this.repo.create(data);
     return this.repo.save(user);
   }
@@ -27,6 +27,13 @@ export class UserService {
 
   async findById(id: string) {
     return this.repo.findOne({ where: { id } });
+  }
+
+  async updateRefreshToken(
+    id: string,
+    hashedToken: string | null,
+  ): Promise<void> {
+    await this.repo.update(id, { refreshToken: hashedToken ?? undefined });
   }
 
   async deleteUser(id: string) {
